@@ -1,0 +1,14 @@
+# HTML-Mails ansehen: Anhaenge/Alternativteile einer Mail mit "v"
+# (neomutt-Standard: <view-attachments>) oeffnen, zum text/html-Teil
+# navigieren, Enter (<view-attach>) -> mailcap startet ein isoliertes
+# qutebrowser-Fenster mit dem entpackten HTML (siehe mailcap,
+# qutebrowser-html-view.py).
+set mailcap_path = "~/.config/neomutt/mailcap"
+
+# text/html INLINE rendern (via w3m-copiousoutput-Eintrag in mailcap), damit
+# reine HTML-Mails lesbar sind UND <reply> den w3m-Text zitiert statt HTML-
+# Quelltext. auto_view nimmt NUR copiousoutput-Eintraege -> nie den
+# qutebrowser-Eintrag, also kein Browserfenster beim Durchscrollen.
+# alternative_order: bei Mails MIT Textteil wird weiter der echte Text zitiert.
+alternative_order text/plain text/enriched text/html
+auto_view text/html

@@ -1,0 +1,54 @@
+# Farbtheme, angelehnt an die restliche Desktop-Optik (Waybar/Mako:
+# dunkles Graphit #1c1c1e/#242428, gedaempftes Blau-Lila #7070a0 als
+# Akzent, #a78bfa als Hervorhebung - siehe ~/.config/waybar/style.css und
+# ~/.config/mako/config).
+set color_directcolor = yes
+
+# ── Basis ───────────────────────────────────────────
+color normal      #c0c0c8 #1c1c1e
+color error       #e07070 #1c1c1e
+color tilde       #33333a #1c1c1e
+color message     #a78bfa #1c1c1e
+color markers     #7070a0 #1c1c1e
+color attachment  #80b8c8 #1c1c1e
+color search      #1c1c1e #a78bfa
+color status      #e2e2e8 #242428
+color indicator   #1c1c1e #a78bfa
+color tree        #7070a0 #1c1c1e
+color signature   #6b6b78 #1c1c1e
+color bold        #e2e2e8 #1c1c1e
+color underline   #e2e2e8 #1c1c1e
+color prompt      #e2e2e8 #242428
+
+# ── Sidebar (Ordner = Gmail-Labels) ─────────────────
+color sidebar_divider    #33333a default
+color sidebar_highlight  #1c1c1e #a78bfa
+color sidebar_indicator  #e2e2e8 #7070a0
+color sidebar_spool_file #e0c060 default
+color sidebar_unread     #80b8c8 default
+color sidebar_flagged    #e07070 default
+color sidebar_new        #88cc88 default
+color sidebar_ordinary   #a0a0b0 default
+
+# ── Index (Mail-Liste) ──────────────────────────────
+color index          #a0a0b0 #1c1c1e "~A"
+color index_number    #6b6b78 #1c1c1e "~A"
+color index_date      #6b6b78 #1c1c1e "~A"
+color index_subject   #c0c0c8 #1c1c1e "~A"
+color index_author    #80b8c8 #1c1c1e "~N"
+color index_author    #6b6b78 #1c1c1e "~O"
+color index_flags     #e0c060 #1c1c1e "~F"
+color index_flags     #e07070 #1c1c1e "~D"
+color index           #a78bfa #1c1c1e "~N"
+
+# ── Pager (Mail lesen) ──────────────────────────────
+color hdrdefault #6b6b78 #1c1c1e
+color header     #a78bfa #1c1c1e "^(From|Subject):"
+color quoted      #6b6b78 #1c1c1e
+color quoted1     #7070a0 #1c1c1e
+color quoted2     #80b8c8 #1c1c1e
+color quoted3     #88cc88 #1c1c1e
+
+# URLs und Mailadressen im Fliesstext hervorheben
+color body #80b8c8 #1c1c1e "(https?|ftp)://[^ \">]+"
+color body #a78bfa #1c1c1e "[-a-zA-Z0-9._%+]+@[-a-zA-Z0-9.]+\\.[a-zA-Z]+"

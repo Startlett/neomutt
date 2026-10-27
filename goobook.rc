@@ -1,0 +1,5 @@
+# Google Contacts als Adressbuch: Tab-Completion im An/Cc-Feld beim
+# Schreiben einer Mail (neomutt-Standardmechanismus fuer query_command).
+set query_command = "goobook query '%s'"
+bind editor <Tab> complete-query
+bind editor \Ct   complete

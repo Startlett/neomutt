@@ -1,0 +1,7 @@
+# .ics-Kalendereinladungen aus neomutt uebernehmen: Anhaenge einer Mail mit
+# "v" (neomutt-Standard: <view-attachments>) oeffnen, zum .ics-Anhang
+# navigieren, dann Ctrl-G -> importiert genau diesen Anhang per gcalcli in
+# den Hauptkalender (gcal-import.sh). gcalcli nutzt die gespeicherte
+# Anmeldung; das Client-Secret braucht es nur beim ersten Anmelden
+# (gcal-import.sh --anmelden, per stdin - nie als Argument).
+macro attach \cg "<pipe-entry>~/.config/neomutt/gcal-import.sh<enter>" "gcalcli: .ics-Anhang in Google Calendar importieren"

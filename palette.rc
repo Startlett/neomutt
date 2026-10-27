@@ -1,0 +1,7 @@
+# Befehlspalette (palette.py): Leertaste öffnet in jedem Menü ein fuzzel-Menü
+# mit deutschen Einträgen und der jeweiligen Taste dahinter. Im Pager ersetzt
+# das „Seite weiter“ – blättern mit Bild↓, Strg+F oder j/k.
+macro index   <space> "<enter-command>source '~/.config/neomutt/palette.py index|'<enter>"   "Befehlsmenü"
+macro pager   <space> "<enter-command>source '~/.config/neomutt/palette.py pager|'<enter>"   "Befehlsmenü"
+macro compose <space> "<enter-command>source '~/.config/neomutt/palette.py compose|'<enter>" "Befehlsmenü"
+macro attach  <space> "<enter-command>source '~/.config/neomutt/palette.py attach|'<enter>"  "Befehlsmenü"

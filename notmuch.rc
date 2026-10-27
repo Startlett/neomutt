@@ -1,0 +1,34 @@
+# notmuch-Integration: virtuelle Tag-/Such-Ordner zusaetzlich zu den echten
+# Maildir-Ordnern (siehe neomuttrc), plus Such-Macros (g-Prefix, passt zu
+# gg/G/gm).
+set nm_default_uri = "notmuch:///home/nico/Mail"
+set virtual_spool_file = yes
+
+# Kein "Taste druecken"-Prompt nach externen Kommandos (gs ruft Wofi auf).
+set wait_key = no
+
+virtual-mailboxes "Inbox (notmuch)"   "notmuch://?query=tag:inbox"
+virtual-mailboxes "Ungelesen"         "notmuch://?query=tag:unread"
+virtual-mailboxes "Wichtig"           "notmuch://?query=tag:important"
+virtual-mailboxes "Markiert"          "notmuch://?query=tag:flagged"
+virtual-mailboxes "Mit Anhang"        "notmuch://?query=tag:attachment"
+virtual-mailboxes "Heute"             "notmuch://?query=date:today"
+virtual-mailboxes "Diese Woche"       "notmuch://?query=date:1week.."
+
+# ── Suche ──────────────────────────────────────────────────────────────
+# gs  Gefuehrte Suche (Wofi-Dialog, keine Query-Syntax noetig)
+# gf  Andere Mails vom selben Absender (From der markierten Mail)
+# gm  Roh-notmuch-Query von Hand eingeben
+# gt  zwischen Suchordnern wechseln
+# gi  zurueck zur echten Inbox
+macro index,pager gs \
+"<shell-escape>~/.local/bin/nm-search.sh<enter><enter-command>source ~/.cache/neomutt/nm-query.rc<enter>" \
+"Gefuehrte Mail-Suche (Wofi)"
+
+macro index,pager gf \
+"<pipe-message>~/.local/bin/nm-from-sender.sh<enter><enter-command>source ~/.cache/neomutt/nm-query.rc<enter>" \
+"Mail vom selben Absender"
+
+macro index,pager gm "<vfolder-from-query>" "notmuch: eigene Suche eingeben"
+macro index,pager gt "<change-vfolder>"     "Suchordner wechseln"
+macro index,pager gi "<change-folder>!<enter>" "Zurueck zur echten Inbox"

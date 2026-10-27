@@ -1,0 +1,5 @@
+# gu: Links aus der aktuellen Mail extrahieren (urlscan-TUI), Auswahl
+# oeffnet direkt im normalen (interaktiven) qutebrowser - nicht in den
+# Kiosk-Webapps. Bewusst kein Ctrl-B (per vim-keys.rc schon "previous-page",
+# siehe neomuttrc-Kommentar bei der Sidebar-Bindung).
+macro pager,index gu "<pipe-message>BROWSER=qutebrowser urlscan<enter>" "urlscan: Links extrahieren & in qutebrowser oeffnen"

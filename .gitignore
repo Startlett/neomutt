@@ -1,0 +1,3 @@
+# Sicherungen vor Änderungen (*.bak-<thema>-<zeit>) bleiben lokal
+*.bak-*
+__pycache__/

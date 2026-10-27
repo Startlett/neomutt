@@ -1,0 +1,77 @@
+# ══════════════════════════════════════════════════
+#  neomutt - Gmail (oettel.nico@gmail.com), Rumpelkiste und Schleppi
+#  Lokales Maildir via mbsync (~/.config/isyncrc), Index via notmuch.
+# ══════════════════════════════════════════════════
+
+# ── Konto ─────────────────────────────────────────
+set realname = "Nico"
+set from     = "oettel.nico@gmail.com"
+set use_from = yes
+set envelope_from = yes
+
+# ── Maildir / Ordner (entspricht den mbsync-Channels) ──
+set folder     = "~/Mail"
+set mbox_type  = Maildir
+set spoolfile  = "+Inbox"
+set record     = "+Sent"
+set postponed  = "+Drafts"
+set trash      = "+[Gmail]/Papierkorb"
+
+mailboxes +Inbox +Archive +Sent +Drafts +Vorlagen \
+          "+[Gmail]/Wichtig" "+[Gmail]/Markiert" "+[Gmail]/Spam" "+[Gmail]/Papierkorb"
+
+# Anhänge landen per Default in ~/Downloads statt im Arbeitsverzeichnis von
+# neomutt - sonst greift der Download-Sortierer (download-sort.sh) nicht, der
+# nur ~/Downloads beobachtet. Speicherprompt bleibt aktiv (kein
+# attach_save_without_prompting), Pfad ist nur vorausgefüllt.
+set attach_save_dir = "~/Downloads/"
+
+# ── Versand (SMTP, gleiches App-Passwort wie mbsync) ──
+set smtp_url  = "smtp://oettel.nico@gmail.com@smtp.gmail.com:587/"
+set smtp_pass = "`pass show google/mail-app-password | head -1`"
+set ssl_force_tls = yes
+
+# ── Discoverability ───────────────────────────────
+# "?" zeigt in jedem Menü (index/pager/compose/...) automatisch alle
+# aktiven Bindings inkl. eigener Macros - ist neomutt-Standard, keine
+# Zusatzconfig nötig. Wichtig dafuer: jedes eigene bind/macro bekommt
+# einen Beschreibungstext (letztes Argument), sonst taucht es in der
+# Hilfe ohne Erklaerung auf.
+set status_on_top = yes
+# Sidebar zeigt alle Ordner (= Gmail-Labels) mit Ungelesen-Zahl staendig
+# sichtbar - ersetzt Auswendiglernen der Ordnerstruktur.
+set sidebar_visible = yes
+set sidebar_width = 28
+set sidebar_short_path = yes
+set sidebar_next_new_wrap = yes
+set mail_check_stats = yes
+
+# vim-nahe Navigation (gg/G, j/k im Pager, Ctrl-F/B/U/D Scrollen, dd
+# loeschen, Thread-Bewegung) - offizielle, mit neomutt ausgelieferte
+# Beispielconfig, nicht neu erfunden.
+source /usr/share/neomutt/vim-keys/vim-keys.rc
+# vim-keys.rc bindet \Cm (index) auf list-reply - \Cm ist auf Terminal-
+# Ebene dasselbe Zeichen wie <Return>/Enter, das ueberschreibt damit
+# unbeabsichtigt "Mail oeffnen" (display-message, neomutt-Standard) im
+# Index. Enter hier explizit wieder freigeben.
+bind index <Return> display-message
+
+# Sidebar per Ctrl-N/Ctrl-P Ordner wechseln, Ctrl-S toggeln (Ctrl-B ist
+# durch vim-keys.rc schon "previous-page" - nicht ueberschreiben)
+bind index,pager \Cp sidebar-prev
+bind index,pager \Cn sidebar-next
+bind index,pager \Co sidebar-open
+bind index,pager \Cs sidebar-toggle-visible
+
+# ── Sortierung / Ansicht ──────────────────────────
+set sort = reverse-date
+set date_format = "%d.%m. %H:%M"
+
+source ~/.config/neomutt/colors.rc
+source ~/.config/neomutt/notmuch.rc
+source ~/.config/neomutt/urlscan.rc
+source ~/.config/neomutt/goobook.rc
+source ~/.config/neomutt/gcalcli.rc
+source ~/.config/neomutt/html-view.rc
+source ~/.config/neomutt/palette.rc
+source ~/.config/neomutt/plumber.rc

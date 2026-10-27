@@ -1,0 +1,5 @@
+# Chaos-Plumber: $mod+i (oder Leertaste → „Mehr mit dieser Mail“) zeigt, was
+# sich mit der aktuellen Mail machen lässt – Links öffnen, auf den Fernseher
+# oder in die Watch-Liste, Bild-Anhänge in den Foto-Import, Einladungen in
+# den Google-Kalender. Der Plumber tippt dafür F12 (actions/mail-kontext).
+macro index,pager <f12> "<pipe-message>~/Projekte/chaos-plumber/actions/mail-kontext<enter>" "Mehr mit dieser Mail (Plumber)"

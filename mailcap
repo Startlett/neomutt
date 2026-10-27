@@ -1,0 +1,6 @@
+text/html; qutebrowser -B $HOME/.local/share/qutebrowser-mail-html -C $HOME/.config/neomutt/qutebrowser-html-view.py --desktop-file-name link-popup --target window %s; nametemplate=%s.html
+
+# Text-Renderer fuer auto_view / Reply-Zitat (kein Browserfenster). Wird von
+# auto_view genutzt, weil nur dieser Eintrag copiousoutput hat; beim
+# interaktiven Ansehen (v -> Enter) gewinnt weiterhin der qutebrowser-Eintrag.
+text/html; w3m -I %{charset} -T text/html -dump %s; copiousoutput; nametemplate=%s.html
