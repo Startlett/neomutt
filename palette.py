@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Befehlspalette für NeoMutt: Leertaste → fuzzel-Menü mit deutschen
+"""Befehlspalette für NeoMutt: Leertaste bzw. Strg+I/Tab → fuzzel-Menü mit deutschen
 Einträgen, Auswahl → NeoMutt führt den Befehl aus.
 
 Aufruf aus palette.rc:  source '~/.config/neomutt/palette.py index|'
@@ -33,7 +33,8 @@ LESEN = [
     ("Stern setzen / entfernen", "F", "exec flag-message"),
     ("Mehr mit dieser Mail (Links, Bilder, Einladung)", "$mod+i", 'push "<f12>"'),
     ("Links öffnen", "gu", 'push "gu"'),
-    ("Anhänge / HTML-Ansicht", "v", "exec view-attachments"),
+    ("HTML-Ansicht im Browser", "", 'push "<pipe-message>~/.config/neomutt/html-ansicht.py<enter>"'),
+    ("Anhänge ansehen / speichern", "v", "exec view-attachments"),
     ("Suchen (geführt)", "gs", 'push "gs"'),
     ("Mails vom selben Absender", "gf", 'push "gf"'),
     ("Suchen (notmuch-Abfrage)", "gm", 'push "gm"'),
@@ -53,8 +54,8 @@ BEFEHLE = {
         ("NeoMutt beenden", "q", "exec quit"),
     ],
     "pager": LESEN + [
-        ("Nächste Mail", "", "exec next-entry"),
-        ("Vorige Mail", "", "exec previous-entry"),
+        ("Nächste Mail", "J", "exec next-entry"),
+        ("Vorige Mail", "K", "exec previous-entry"),
         ("Zurück zur Liste", "q", "exec exit"),
         ("Alle Tasten anzeigen", "?", "exec help"),
     ],

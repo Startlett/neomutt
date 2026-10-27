@@ -64,6 +64,11 @@ bind index,pager \Co sidebar-open
 bind index,pager \Cs sidebar-toggle-visible
 
 # ── Sortierung / Ansicht ──────────────────────────
+# Am Ende einer Mail stehen bleiben statt beim Weiterblättern die nächste zu
+# öffnen (verwirrte: Ende der Mail oder schon die nächste?); ~-Zeilen zeigen
+# das Ende sichtbar an. Nächste Mail bewusst: J bzw. Palette.
+set pager_stop = yes
+set tilde = yes
 set sort = reverse-date
 set date_format = "%d.%m. %H:%M"
 
