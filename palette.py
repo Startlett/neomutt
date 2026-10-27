@@ -11,6 +11,7 @@ nebenbei. Neue Einträge: Zeile in BEFEHLE ergänzen (Bezeichnung, Taste,
 NeoMutt-Befehl).
 """
 
+import os
 import subprocess
 import sys
 
@@ -25,6 +26,7 @@ LESEN = [
     ("Antworten", "r", "exec reply"),
     ("Allen antworten", "", "exec group-reply"),
     ("Weiterleiten", "f", "exec forward-message"),
+    ("HTML-Ansicht im Browser", "", 'push "<pipe-message>~/.config/neomutt/html-ansicht.py<enter>"'),
     ("Neue Mail schreiben", "m", "exec mail"),
     ("Archivieren", "", ARCHIVIEREN),
     ("In den Papierkorb", "dd", "exec delete-message"),
@@ -33,7 +35,6 @@ LESEN = [
     ("Stern setzen / entfernen", "F", "exec flag-message"),
     ("Mehr mit dieser Mail (Links, Bilder, Einladung)", "$mod+i", 'push "<f12>"'),
     ("Links öffnen", "gu", 'push "gu"'),
-    ("HTML-Ansicht im Browser", "", 'push "<pipe-message>~/.config/neomutt/html-ansicht.py<enter>"'),
     ("Anhänge ansehen / speichern", "v", "exec view-attachments"),
     ("Suchen (geführt)", "gs", 'push "gs"'),
     ("Mails vom selben Absender", "gf", 'push "gf"'),
@@ -80,6 +81,21 @@ BEFEHLE = {
 }
 
 
+PLUMB = os.path.expanduser("~/.local/bin/plumb")
+# Die eigene Plumber-Regel für NeoMutt (öffnet diese Palette) nicht noch einmal
+EIGENE = ("✉️ Mail-Menü",)
+
+
+def plumber_angebote() -> list[str]:
+    """Was der Chaos-Plumber für dieses Fenster anbietet ($mod+i), ohne die
+    eigene Regel – z. B. „📋 Text an Schleppi: …“, „🔑 Anmelden (pass)“."""
+    try:
+        p = subprocess.run([PLUMB, "--angebote"], capture_output=True, text=True, timeout=4)
+    except (OSError, subprocess.TimeoutExpired):
+        return []
+    return [z for z in p.stdout.splitlines() if z.strip() and z not in EIGENE]
+
+
 def zeile(bezeichnung: str, taste: str) -> str:
     return f"{bezeichnung}   ·   {taste}" if taste else bezeichnung
 
@@ -87,13 +103,21 @@ def zeile(bezeichnung: str, taste: str) -> str:
 def main() -> int:
     befehle = BEFEHLE.get(sys.argv[1] if len(sys.argv) > 1 else "", BEFEHLE["index"])
     zeilen = {zeile(b, t): c for b, t, c in befehle}
+    # darunter die übrigen Plumber-Angebote (🔌), ausgeführt mit plumb -s --waehle
+    plumber = {f"🔌 {name}": name for name in plumber_angebote()}
     try:
-        p = subprocess.run(["fuzzel", "--dmenu", "--prompt", "Mail › ", "--width", "45",
-                            "--lines", str(min(len(zeilen), 20))],
-                           input="\n".join(zeilen) + "\n", capture_output=True, text=True, timeout=300)
+        p = subprocess.run(["fuzzel", "--dmenu", "--prompt", "Mail › ", "--width", "60",
+                            "--lines", str(min(len(zeilen) + len(plumber), 22))],
+                           input="\n".join([*zeilen, *plumber]) + "\n", capture_output=True, text=True, timeout=300)
     except (OSError, subprocess.TimeoutExpired):
         return 0
-    befehl = zeilen.get(p.stdout.strip("\n"))
+    wahl = p.stdout.strip("\n")
+    if wahl in plumber:
+        # Palette ist zu, NeoMutt wieder vorn: den Treffer wie bei $mod+i ausführen
+        subprocess.Popen([PLUMB, "-s", "--waehle", plumber[wahl]], stdout=subprocess.DEVNULL,
+                         stderr=subprocess.DEVNULL, start_new_session=True)
+        return 0
+    befehl = zeilen.get(wahl)
     if befehl:
         print(befehl)
     return 0

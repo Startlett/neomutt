@@ -69,6 +69,11 @@ bind index,pager \Cs sidebar-toggle-visible
 # das Ende sichtbar an. Nächste Mail bewusst: J bzw. Palette.
 set pager_stop = yes
 set tilde = yes
+# Pfeil runter/hoch (und das Mausrad – foot schickt es als Pfeiltasten) sind
+# im Pager ab Werk „nächste/vorige Mail“ – damit sprang man beim Scrollen
+# sofort in die nächste Mail. Hier: Zeile für Zeile durch die Mail.
+bind pager <down> next-line
+bind pager <up>   previous-line
 set sort = reverse-date
 set date_format = "%d.%m. %H:%M"
 
