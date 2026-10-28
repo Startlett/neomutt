@@ -80,7 +80,7 @@ set date_format = "%d.%m. %H:%M"
 source ~/.config/neomutt/colors.rc
 source ~/.config/neomutt/notmuch.rc
 source ~/.config/neomutt/urlscan.rc
-source ~/.config/neomutt/goobook.rc
+source ~/.config/neomutt/kontakte.rc
 source ~/.config/neomutt/gcalcli.rc
 source ~/.config/neomutt/html-view.rc
 source ~/.config/neomutt/palette.rc

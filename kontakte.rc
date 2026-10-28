@@ -1,0 +1,8 @@
+# Adressbuch: Tab im An/Cc-Feld beim Schreiben ergänzt aus khard (lokale
+# Google-Kontakte, ~/.contacts, abgeglichen per vdirsyncer) – schnell und auch
+# offline. Bis 28.10.2026: goobook (fragte bei jedem Tab live bei Google).
+# Die erste Ausgabezeile von khard („searching for …“) nimmt NeoMutt als
+# Statuszeile, danach Adresse, Name, Typ (neomutt-Standard für query_command).
+set query_command = "khard email --parsable -- '%s'"
+bind editor <Tab> complete-query
+bind editor \Ct   complete
