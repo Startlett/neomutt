@@ -67,6 +67,12 @@ bind index,pager \Cs sidebar-toggle-visible
 # Am Ende einer Mail stehen bleiben statt beim Weiterblättern die nächste zu
 # öffnen (verwirrte: Ende der Mail oder schon die nächste?); ~-Zeilen zeigen
 # das Ende sichtbar an. Nächste Mail bewusst: J bzw. Palette.
+# Löschen/Archivieren wirken sofort (28.10.2026): statt „D“ markieren und
+# beim Verlassen nachfragen gleich übernehmen – gelöschte Mails liegen ja im
+# Papierkorb ([Gmail]/Papierkorb, trash), zurückholen über die Palette.
+set delete = yes
+macro index,pager dd       "<delete-message><sync-mailbox>" "In den Papierkorb (sofort)"
+macro index,pager <delete> "<delete-message><sync-mailbox>" "In den Papierkorb (sofort)"
 set pager_stop = yes
 set tilde = yes
 # Pfeil runter/hoch (und das Mausrad – foot schickt es als Pfeiltasten) sind

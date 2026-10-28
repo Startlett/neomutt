@@ -18,7 +18,11 @@ import sys
 # Gmail archivieren = in den Ordner Archive verschieben, ohne Rückfrage
 # „anhängen?“ (confirm_append gilt nur für diesen einen Befehl)
 ARCHIVIEREN = ('push "<enter-command>set confirm_append=no<enter><save-message>+Archive<enter>'
-               '<enter-command>set confirm_append=yes<enter>"')
+               '<enter-command>set confirm_append=yes<enter><sync-mailbox>"')
+# Zurück in die Inbox (z. B. aus dem Papierkorb), ebenso sofort
+IN_INBOX = ('push "<enter-command>set confirm_append=no<enter><save-message>+Inbox<enter>'
+            '<enter-command>set confirm_append=yes<enter><sync-mailbox>"')
+PAPIERKORB_OEFFNEN = 'push "<change-folder>+[Gmail]/Papierkorb<enter>"'
 # Erst eigene Änderungen (Löschen, Archivieren) übernehmen, dann holen
 ABRUFEN = 'push "<sync-mailbox><shell-escape>systemctl --user start mbsync.service<enter>"'
 
@@ -29,8 +33,9 @@ LESEN = [
     ("HTML-Ansicht im Browser", "", 'push "<pipe-message>~/.config/neomutt/html-ansicht.py<enter>"'),
     ("Neue Mail schreiben", "m", "exec mail"),
     ("Archivieren", "", ARCHIVIEREN),
-    ("In den Papierkorb", "dd", "exec delete-message"),
-    ("Papierkorb rückgängig", "u", "exec undelete-message"),
+    ("In den Papierkorb", "dd", 'push "<delete-message><sync-mailbox>"'),
+    ("Papierkorb öffnen (zurückholen)", "", PAPIERKORB_OEFFNEN),
+    ("Zurück in die Inbox", "", IN_INBOX),
     ("Gelesen / ungelesen", "", "exec toggle-new"),
     ("Stern setzen / entfernen", "F", "exec flag-message"),
     ("Mehr mit dieser Mail (Links, Bilder, Einladung)", "$mod+i", 'push "<f12>"'),
