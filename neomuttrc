@@ -71,6 +71,9 @@ bind index,pager \Cs sidebar-toggle-visible
 # beim Verlassen nachfragen gleich übernehmen – gelöschte Mails liegen ja im
 # Papierkorb ([Gmail]/Papierkorb, trash), zurückholen über die Palette.
 set delete = yes
+# Mehrere Mails auf einmal (29.10.2026): sind Mails markiert (t / T + Muster),
+# wirken Löschen, Archivieren usw. ohne vorheriges „;“ auf alle markierten
+set auto_tag = yes
 macro index,pager dd       "<delete-message><sync-mailbox>" "In den Papierkorb (sofort)"
 macro index,pager <delete> "<delete-message><sync-mailbox>" "In den Papierkorb (sofort)"
 set pager_stop = yes

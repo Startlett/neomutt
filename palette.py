@@ -55,6 +55,11 @@ LESEN = [
 BEFEHLE = {
     "index": LESEN + [
         ("Mail öffnen", "Enter", "exec display-message"),
+        # Mehrere Mails auf einmal (29.10.2026): auto_tag=yes in der neomuttrc –
+        # sind Mails markiert, wirken Löschen/Archivieren/… auf alle markierten
+        ("Diese Mail markieren / Markierung weg", "t", "exec tag-message"),
+        ("Mehrere markieren (Muster: ~f Absender, ~s Betreff, ~d >30d, ~A alle)", "T", "exec tag-pattern"),
+        ("Alle Markierungen aufheben", "Strg+T", 'push "<untag-pattern>~A<enter>"'),
         ("Unterhaltung ein-/ausklappen", "za", "exec collapse-thread"),
         ("Alle Tasten anzeigen", "?", "exec help"),
         ("NeoMutt beenden", "q", "exec quit"),
